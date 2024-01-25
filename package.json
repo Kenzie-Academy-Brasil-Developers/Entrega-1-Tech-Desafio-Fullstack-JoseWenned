@@ -4,7 +4,8 @@
   "description": "Repository Back End",
   "main": "index.js",
   "scripts": {
-    "dev": "tsnd --cls --rs --ignore-watch node_modules src/server.ts"
+    "dev": "tsnd --cls --rs --ignore-watch node_modules src/server.ts",
+    "typeorm": "typeorm-ts-node-commonjs"
   },
   "keywords": [],
   "author": "",
