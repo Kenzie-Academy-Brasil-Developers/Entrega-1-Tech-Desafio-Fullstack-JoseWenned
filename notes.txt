@@ -1,0 +1,4 @@
+ORM -> Object Relational Mapping
+
+BASE_URL -> postgres:
+postgres://<DB_NAME>:<DB_PASSWORD>@<DB_HOST>:<DB_PORT>/<DB_DATABASE>
