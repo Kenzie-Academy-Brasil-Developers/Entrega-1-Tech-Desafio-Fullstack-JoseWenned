@@ -1,0 +1,4 @@
+command to generate migration:
+npm run typeorm migration:generate src/migrations/InitialMigration -- -d src/data-source
+
+command 

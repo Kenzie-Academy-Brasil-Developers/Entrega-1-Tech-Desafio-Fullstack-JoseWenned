@@ -11,8 +11,8 @@ export default class Contact {
     @Column({ length: 100, unique: true })
     email: string
 
-    @Column({ length: 20, unique: true })
-    telephone: number
+    @Column({ length: 15, unique: true })
+    telephone: string
 
     @Column({ type: "date"})
     date_register: Date
