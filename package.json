@@ -4,7 +4,7 @@
   "description": "Repository Back End",
   "main": "index.js",
   "scripts": {
-    "dev": "tsnd --respawn src/index.ts"
+    "dev": "tsnd --cls --rs --ignore-watch node_modules src/server.ts"
   },
   "keywords": [],
   "author": "",
