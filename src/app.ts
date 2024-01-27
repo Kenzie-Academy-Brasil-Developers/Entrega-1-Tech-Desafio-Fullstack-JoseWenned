@@ -1,13 +1,13 @@
-import  express, { Application } from "express";
-import { createClientController, readClientController } from "./controllers/client.controller";
-import { createContactController, readContactsController } from "./controllers/contact.controller";
+import  express, { Application, json } from "express";
+import { routes } from "./routers/routers";
+import "express-async-errors";
+import { handleErros } from "./middlewares/handleErrors.middleware";
 
 export const app: Application = express();
 
-app.use(express.json());
+app.use(json());
 
-app.post("/clients", createClientController)
-app.get("/clients", readClientController)
+app.use("/", routes)
 
-app.post("/contacts", createContactController)
-app.get("/contacts", readContactsController)
+app.use(handleErros)
+
