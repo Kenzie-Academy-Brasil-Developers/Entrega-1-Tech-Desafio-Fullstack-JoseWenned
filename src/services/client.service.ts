@@ -2,32 +2,27 @@ import { AppDataSource } from "../data-source";
 import Client from "../entities/Client.entity";
 import { Repository } from "typeorm";
 import AppError from "../errors/AppErrors.error";
+import { clientRepo } from "../repositories";
 
 export const createClientService = async (data: Omit<Client, "id">): Promise<Client> => {
-    
-    const repo: Repository<Client> = AppDataSource.getRepository(Client)
 
-    const client: Client = await repo.save(data)
+    const client: Client = await clientRepo.save(data)
 
     return client
 
 }
 
 export const readClientsService = async (): Promise<Client[]> => {
-    
-    const repo: Repository<Client> = AppDataSource.getRepository(Client)
 
-    const clients: Client[] = await repo.find()
+    const clients: Client[] = await clientRepo.find()
 
     return clients
     
 }
 
 export const readClientIdService = async (clientId: number): Promise<Client> => {
-    
-    const repo: Repository<Client> = AppDataSource.getRepository(Client)
 
-    const client: Client | null = await repo.findOne( { where: { id: clientId } } )
+    const client: Client | null = await clientRepo.findOne( { where: { id: clientId } } )
 
     if(!client){
         throw new AppError("Client not found", 404)
@@ -38,16 +33,14 @@ export const readClientIdService = async (clientId: number): Promise<Client> => 
 }
 
 export const deleteClientService = async (clientId: number): Promise<void> => {
-    
-    const repo: Repository<Client> = AppDataSource.getRepository(Client)
 
-    const client: Client | null = await repo.findOne( { where: { id: clientId } } )
+    const client: Client | null = await clientRepo.findOne( { where: { id: clientId } } )
 
     if(!client){
         throw new AppError("Client not found", 404)
     }
 
-    await repo.remove(client)
+    await clientRepo.remove(client)
 
 }
 
