@@ -12,7 +12,7 @@ const DataSourceConfig = (): DataSourceOptions => {
     const dburl: string | undefined = process.env.DATABASE_URL
 
     if(!dburl) {
-        throw new Error("Missing env: var DATABASE_URL")
+        throw new Error("Missing env var: DATABASE_URL")
     }
 
     return {
