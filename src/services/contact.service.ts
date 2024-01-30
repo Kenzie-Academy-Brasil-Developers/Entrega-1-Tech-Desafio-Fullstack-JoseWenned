@@ -1,33 +1,26 @@
-import { AppDataSource } from "../data-source";
-import { Repository } from "typeorm";
 import Contact from "../entities/Contact.entity";
 import AppError from "../errors/AppErrors.error";
+import { contactRepo } from "../repositories";
 
 export const createContactService = async (data: Omit<Contact, "id">): Promise<Contact> => {
-    
-    const repo: Repository<Contact> = AppDataSource.getRepository(Contact)
 
-    const contact: Contact = await repo.save(data)
+    const contact: Contact = await contactRepo.save(data)
 
     return contact
 
 }
 
 export const readContactsService = async (): Promise<Contact[]> => {
-    
-    const repo: Repository<Contact> = AppDataSource.getRepository(Contact)
 
-    const contacts: Contact[] = await repo.find()
+    const contacts: Contact[] = await contactRepo.find()
 
     return contacts
     
 }
 
 export const readContactIdService = async (contactId: number): Promise<Contact> => {
-    
-    const repo: Repository<Contact> = AppDataSource.getRepository(Contact)
 
-    const contact: Contact | null = await repo.findOne( { where: { id: contactId } } )
+    const contact: Contact | null = await contactRepo.findOne( { where: { id: contactId } } )
 
     if(!contact){
         throw new AppError("Contact not found", 404)
@@ -38,15 +31,13 @@ export const readContactIdService = async (contactId: number): Promise<Contact> 
 }
 
 export const deleteContactService = async (contactId: number): Promise<void> => {
-    
-    const repo: Repository<Contact> = AppDataSource.getRepository(Contact)
 
-    const contact: Contact | null = await repo.findOne( { where: { id: contactId } } )
+    const contact: Contact | null = await contactRepo.findOne( { where: { id: contactId } } )
 
     if(!contact){
         throw new AppError("Contact not found", 404)
     }
 
-    await repo.remove(contact)
+    await contactRepo.remove(contact)
     
 }
