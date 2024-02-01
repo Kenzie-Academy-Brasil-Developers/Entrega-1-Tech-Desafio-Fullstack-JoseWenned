@@ -20,7 +20,7 @@ export const readContactsController = async (req: Request, res: Response): Promi
 
 export const readByIdContactController = async (req: Request, res: Response): Promise<Response> => {
     
-    const contacts: Contact = await readContactIdService(Number(req.params.contactId))
+    const contacts: Contact = await readContactIdService(Number(req.params.id))
 
     return res.status(200).json(contacts)
     
@@ -28,7 +28,7 @@ export const readByIdContactController = async (req: Request, res: Response): Pr
 
 export const deleteContactController = async (req: Request, res: Response): Promise<Response> => {
     
-    await deleteContactService(Number(req.params.contactId))
+    await deleteContactService(Number(req.params.id))
 
     return res.status(204).json()
     

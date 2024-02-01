@@ -20,7 +20,7 @@ export const readClientsController = async (req: Request, res: Response): Promis
 
 export const readByIdClientController = async (req: Request, res: Response): Promise<Response> => {
     
-    const clients: Client = await readClientIdService(Number(req.params.clientId))
+    const clients: Client = await readClientIdService(Number(req.params.id))
 
     return res.status(200).json(clients)
     
@@ -28,7 +28,7 @@ export const readByIdClientController = async (req: Request, res: Response): Pro
 
 export const deleteClientController = async (req: Request, res: Response): Promise<Response> => {
     
-    await deleteClientService(Number(req.params.clientId))
+    await deleteClientService(Number(req.params.id))
 
     return res.status(204).json()
     

@@ -3,8 +3,8 @@ import { createContactController, deleteContactController, readByIdContactContro
 
 export const contactRouter: Router = Router()
 
-contactRouter.post("/contacts", createContactController)
-contactRouter.get("/contacts", readContactsController)
-contactRouter.get("/contacts/:id", readByIdContactController)
-// contactRouter.patch("/contacts/:id",)
-contactRouter.delete("/contacts/:id", deleteContactController)
+contactRouter.post("/", createContactController)
+contactRouter.get("/", readContactsController)
+contactRouter.get("/:id", readByIdContactController)
+// contactRouter.patch("/:id",)
+contactRouter.delete("/:id", deleteContactController)

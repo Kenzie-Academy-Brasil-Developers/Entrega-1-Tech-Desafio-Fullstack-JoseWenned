@@ -3,8 +3,8 @@ import { createClientController, deleteClientController, readByIdClientControlle
 
 export const clientRouter: Router = Router()
 
-clientRouter.post("/clients", createClientController)
-clientRouter.get("/clients", readClientsController)
-clientRouter.get("/clients/:id", readByIdClientController)
-// clientRouter.patch("/clients/:id",)
-clientRouter.delete("/clients/:id", deleteClientController)
+clientRouter.post("/", createClientController)
+clientRouter.get("/", readClientsController)
+clientRouter.get("/:id", readByIdClientController)
+// clientRouter.patch("/:id",)
+clientRouter.delete("/:id", deleteClientController)
