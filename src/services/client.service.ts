@@ -20,31 +20,14 @@ export const readClientsService = async (): Promise<Client[]> => {
     
 }
 
-export const readClientIdService = async (clientId: number): Promise<Client> => {
-
-    const client: Client | null = await clientRepo.findOne( { where: { id: clientId } } )
-
-    if(!client){
-        throw new AppError("Client not found", 404)
-    }
-
-    return client
-    
-}
-
 export const updateClientService = async (client: Client, data: Partial<Client>): Promise<Client> => {
-
-    return await clientRepo.save({ ...client, ...data})
+    
+    return await clientRepo.save({...client, ...data})
     
 }
 
-export const deleteClientService = async (clientId: number): Promise<void> => {
 
-    const client: Client | null = await clientRepo.findOne( { where: { id: clientId } } )
-
-    if(!client){
-        throw new AppError("Client not found", 404)
-    }
+export const deleteClientService = async (client: Client): Promise<void> => {
 
     await clientRepo.remove(client)
 

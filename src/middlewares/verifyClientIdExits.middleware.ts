@@ -2,7 +2,7 @@ import { Response, Request, NextFunction } from "express";
 import { clientRepo } from "../repositories";
 import AppError from "../errors/AppErrors.error";
 
-export const verifyIdExits = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const verifyClientIdExits = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 
     const foundClient = await clientRepo.findOneBy( {id: Number( req.params.id ) } );
 
