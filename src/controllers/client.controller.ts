@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import Client from "../entities/Client.entity";
-import { createClientService, deleteClientService, readClientIdService, readClientsService } from "../services/client.service";
+import { createClientService, deleteClientService, readClientsService, updateClientService } from "../services/client.service";
 
 export const createClientController = async (req: Request, res: Response): Promise<Response> => {
     
@@ -19,16 +19,24 @@ export const readClientsController = async (req: Request, res: Response): Promis
 }
 
 export const readByIdClientController = async (req: Request, res: Response): Promise<Response> => {
-    
-    const clients: Client = await readClientIdService(Number(req.params.id))
 
-    return res.status(200).json(clients)
+    return res.status(200).json(res.locals.foundClient)
+    
+}
+
+export const updateClientController = async (req: Request, res: Response): Promise<Response> => {
+    
+    const { foundClient } = res.locals
+
+    const client: Client = await updateClientService(foundClient, req.body)
+
+    return res.status(200).json(client)
     
 }
 
 export const deleteClientController = async (req: Request, res: Response): Promise<Response> => {
     
-    await deleteClientService(Number(req.params.id))
+    await deleteClientService(res.locals.foundClient)
 
     return res.status(204).json()
     
