@@ -32,6 +32,12 @@ export const readClientIdService = async (clientId: number): Promise<Client> => 
     
 }
 
+export const updateClientService = async (client: Client, data: Partial<Client>): Promise<Client> => {
+
+    return await clientRepo.save({ ...client, ...data})
+    
+}
+
 export const deleteClientService = async (clientId: number): Promise<void> => {
 
     const client: Client | null = await clientRepo.findOne( { where: { id: clientId } } )
