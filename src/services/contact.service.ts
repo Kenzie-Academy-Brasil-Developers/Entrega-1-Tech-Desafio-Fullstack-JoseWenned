@@ -18,25 +18,13 @@ export const readContactsService = async (): Promise<Contact[]> => {
     
 }
 
-export const readContactIdService = async (contactId: number): Promise<Contact> => {
-
-    const contact: Contact | null = await contactRepo.findOne( { where: { id: contactId } } )
-
-    if(!contact){
-        throw new AppError("Contact not found", 404)
-    }
-
-    return contact
+export const updateContactService = async (client: Contact, data: Partial<Contact>): Promise<Contact> => {
+    
+    return await contactRepo.save({...client, ...data})
     
 }
 
-export const deleteContactService = async (contactId: number): Promise<void> => {
-
-    const contact: Contact | null = await contactRepo.findOne( { where: { id: contactId } } )
-
-    if(!contact){
-        throw new AppError("Contact not found", 404)
-    }
+export const deleteContactService = async (contact: Contact): Promise<void> => {
 
     await contactRepo.remove(contact)
     
