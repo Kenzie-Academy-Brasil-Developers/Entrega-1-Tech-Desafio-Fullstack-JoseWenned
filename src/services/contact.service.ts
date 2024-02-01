@@ -30,6 +30,12 @@ export const readContactIdService = async (contactId: number): Promise<Contact> 
     
 }
 
+export const updateContactService = async (contact: Contact, data: Partial<Contact>): Promise<Contact> => {
+
+    return await contactRepo.save({ ...contact, ...data})
+    
+}
+
 export const deleteContactService = async (contactId: number): Promise<void> => {
 
     const contact: Contact | null = await contactRepo.findOne( { where: { id: contactId } } )
