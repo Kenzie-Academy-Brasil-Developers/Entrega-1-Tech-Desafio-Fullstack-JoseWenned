@@ -1,5 +1,6 @@
 import Contact from "../entities/Contact.entity";
 import AppError from "../errors/AppErrors.error";
+import { PaginationParams } from "../interfaces/pagination.interface";
 import { contactRepo } from "../repositories";
 
 export const createContactService = async (data: Omit<Contact, "id">): Promise<Contact> => {
@@ -10,11 +11,19 @@ export const createContactService = async (data: Omit<Contact, "id">): Promise<C
 
 }
 
-export const readContactsService = async (): Promise<Contact[]> => {
+export const readContactsService = async ( { nextPage, page, perPage, prevPage }: PaginationParams ): Promise<any> => {
 
-    const contacts: Contact[] = await contactRepo.find()
+    const [contacts, count] = await contactRepo.findAndCount({
+        skip: page,
+        take: perPage
+    })
 
-    return contacts
+    return {
+        prevPage,
+        nextPage,
+        data: contacts,
+        count
+    }
     
 }
 
