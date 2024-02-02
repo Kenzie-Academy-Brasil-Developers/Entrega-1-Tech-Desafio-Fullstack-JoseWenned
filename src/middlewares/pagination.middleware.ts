@@ -15,7 +15,7 @@ export const pagination = (req: Request, res: Response, next: NextFunction): voi
     const nextPage: string = `${baseUrl}?page=${page + 1}&perPage=${perPage}`
 
     const pagination: PaginationParams = {
-        page,
+        page: perPage * (page - 1),
         perPage,
         prevPage,
         nextPage
