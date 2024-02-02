@@ -28,9 +28,9 @@ export const updateContactController = async (req: Request, res: Response): Prom
     
     const { foundContact } = res.locals
 
-    const contatc: Contact = await updateContactService(foundContact, req.body)
+    const contact: Contact = await updateContactService(foundContact, req.body)
 
-    return res.status(200).json(contatc)
+    return res.status(200).json(contact)
     
 }
 
