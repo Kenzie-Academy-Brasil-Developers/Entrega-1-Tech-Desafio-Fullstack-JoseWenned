@@ -19,8 +19,8 @@ export const readContactsService = async ({nextPage, page, perPage, prevPage}: P
     })
 
     return {
-        nextPage: page <= 1 ? null : prevPage,
-        prevPage: count - page <= perPage ? null: nextPage,
+        prevPage: page <= 1 ? null : prevPage,
+        nextPage: count - page <= perPage ? null: nextPage,
         data: contacts,
         count
     }
