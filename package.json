@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsnd --cls --rs --ignore-watch node_modules src/server.ts",
-    "typeorm": "typeorm-ts-node-commonjs"
+    "typeorm": "typeorm-ts-node-commonjs",
+    "typeorm:generate": "typeorm-ts-node-commonjs migration:generate -d src/data-source",
+    "typeorm:run": "typeorm-ts-node-commonjs migration:run -d src/data-source"
   },
   "keywords": [],
   "author": "",
