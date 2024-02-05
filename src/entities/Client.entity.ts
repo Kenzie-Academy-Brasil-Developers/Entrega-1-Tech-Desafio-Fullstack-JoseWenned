@@ -1,22 +1,28 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, OneToMany } from "typeorm";
+import Contact from "./Contact.entity";
 
 @Entity("clients")
 export default class Client {
-    @PrimaryGeneratedColumn("increment")
+
+    @PrimaryGeneratedColumn( "increment" )
     id: number
 
-    @Column({ length: 50, unique: true })
+    @Column({ length: 120 })
     full_name: string
 
-    @Column({ length: 100, unique: true })
+    @Column({ length: 120, unique: true })
     email: string
 
-    @Column({ length: 200, unique: true })
+    @Column({ length: 200 })
     password: string
 
-    @Column({ length: 15, unique: true })
+    @Column({ unique: true })
     telephone: string
 
-    @Column({ type: "date"})
-    date_register: Date
+    @CreateDateColumn({ type: "date" })
+    date_register: string
+
+    @OneToMany(()=> Contact, (contact) => contact.client)
+    contacts: Contact[]
+
 }

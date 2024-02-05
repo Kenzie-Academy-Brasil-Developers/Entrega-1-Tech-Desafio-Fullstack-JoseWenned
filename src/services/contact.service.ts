@@ -11,9 +11,10 @@ export const createContactService = async (data: Omit<Contact, "id">): Promise<C
 
 }
 
-export const readContactsService = async ({nextPage, page, perPage, prevPage}: PaginationParams): Promise<any> => {
+export const readContactsService = async ({nextPage, page, perPage, prevPage, order, sort}: PaginationParams): Promise<any> => {
 
     const [contacts, count] = await contactRepo.findAndCount({
+        order: { [sort]: order },
         skip: page,
         take: perPage,
     })

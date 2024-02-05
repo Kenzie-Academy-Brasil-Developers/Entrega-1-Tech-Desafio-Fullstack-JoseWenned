@@ -10,3 +10,4 @@ Deixa como true as opções:
 
 Deixa como false a opção:
 1. strictPropertyInitialization
+
