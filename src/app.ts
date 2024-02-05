@@ -1,5 +1,6 @@
-import  express, { Application, json } from "express";
+import "reflect-metadata"
 import "express-async-errors";
+import  express, { Application, json } from "express";
 import { handleErros } from "./middlewares/handleErrors.middleware";
 import { routes } from "./routers/index.router";
 
