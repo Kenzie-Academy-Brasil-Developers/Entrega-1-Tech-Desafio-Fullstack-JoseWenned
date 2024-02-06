@@ -3,7 +3,7 @@ import { ZodTypeAny } from "zod";
 import AppError from "../errors/AppErrors.error";
 import { verify } from "jsonwebtoken";
 
-export const verifyBody = (schema: ZodTypeAny) => (req: Request, res: Response, next: NextFunction): void => {
+export const validateBody = (schema: ZodTypeAny) => (req: Request, res: Response, next: NextFunction): void => {
     
     req.body = schema.parse(req.body)
 
@@ -27,27 +27,27 @@ export const verifyToken = (req: Request, res: Response, next: NextFunction): vo
 
 }
 
-export const verifyAdmin = (req: Request, res: Response, next:NextFunction): void => {
+// export const verifyAdmin = (req: Request, res: Response, next:NextFunction): void => {
 
-    const { admin } = res.locals.decoded
+//     const { admin } = res.locals.decoded
 
-    if(!admin) throw new AppError("Insufficient permissions", 403)
+//     if(!admin) throw new AppError("Insufficient permissions", 403)
 
-    return next()
+//     return next()
 
-}
+// }
 
-export const verifyPermissions = (req: Request, res: Response, next: NextFunction): void => {
+// export const verifyPermissions = (req: Request, res: Response, next: NextFunction): void => {
 
-    const { id } = req.params
+//     const { id } = req.params
     
-    const { sub, admin } = res.locals.decoded
+//     const { sub, admin } = res.locals.decoded
 
-    if(admin) return next()
+//     if(admin) return next()
 
-    if( id !== sub ) throw new AppError("Insufficient permissions", 409)
+//     if( id !== sub ) throw new AppError("Insufficient permissions", 409)
 
-    return next()
+//     return next()
     
-}
+// }
 
