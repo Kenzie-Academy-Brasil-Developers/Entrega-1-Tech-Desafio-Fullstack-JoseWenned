@@ -16,7 +16,7 @@ export default class Client {
     @Column({ length: 200 })
     password: string
 
-    @Column({ unique: true })
+    @Column({ length: 15, unique: true })
     telephone: string
 
     @CreateDateColumn({ type: "date" })
