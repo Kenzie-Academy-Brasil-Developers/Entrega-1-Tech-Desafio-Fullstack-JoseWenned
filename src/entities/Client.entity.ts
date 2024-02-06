@@ -13,6 +13,9 @@ export default class Client {
     @Column({ length: 120, unique: true })
     email: string
 
+    @Column( { default: false } )
+    admin: boolean
+
     @Column({ length: 200 })
     password: string
 
