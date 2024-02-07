@@ -13,7 +13,7 @@ export default class Contact {
     @Column({ length: 120, unique: true })
     email: string
 
-    @Column({ unique: true })
+    @Column({ length: 15, unique: true })
     telephone: string
 
     @CreateDateColumn({ type: "date" })
