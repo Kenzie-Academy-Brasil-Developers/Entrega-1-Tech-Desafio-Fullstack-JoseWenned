@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, OneToMany } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, OneToMany, BeforeInsert, BeforeUpdate } from "typeorm";
 import Contact from "./Contact.entity";
+import { getRounds, hashSync } from "bcryptjs";
 
 @Entity("clients")
 export default class Client {
@@ -27,5 +28,19 @@ export default class Client {
 
     @OneToMany(()=> Contact, (contact) => contact.client)
     contacts: Contact[]
+
+    @BeforeInsert()
+    @BeforeUpdate()
+    hashPassword = () => {
+
+        const hasRounds: number = getRounds( this.password )
+        
+        if(!hasRounds) {
+
+            this.password = hashSync( this.password, 10 )
+
+        }
+
+    }
 
 }

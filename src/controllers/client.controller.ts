@@ -1,10 +1,11 @@
 import { Request, Response } from "express";
 import Client from "../entities/Client.entity";
 import { createClientService, deleteClientService, readClientsService, updateClientService } from "../services/client.service";
+import { ClientReturn } from "../interfaces/client.interface";
 
 export const createClientController = async (req: Request, res: Response): Promise<Response> => {
     
-    const client: Client = await createClientService(req.body)
+    const client: ClientReturn = await createClientService(req.body)
 
     return res.status(201).json(client)
 

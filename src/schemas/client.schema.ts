@@ -8,15 +8,15 @@ export const clientSchema = z.object({
     password: z.string().max(200),
     admin: z.boolean().default(false),
     telephone: z.string().max(15),
-    date_regster: z.string()
+    date_register: z.string()
 
 })
 
 export const createClientSchema = clientSchema.pick( { 
 
-    id: true,
     full_name: true,
     email: true,
+    password: true,
     admin: true,
     telephone: true,
     date_register: true,
