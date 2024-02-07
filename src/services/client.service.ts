@@ -1,14 +1,15 @@
-import { AppDataSource } from "../data-source";
 import Client from "../entities/Client.entity";
-import { Repository } from "typeorm";
-import AppError from "../errors/AppErrors.error";
 import { clientRepo } from "../repositories";
+import { ClientCreate, ClientReturn } from "../interfaces/client.interface";
+import { clientReturnSchema } from "../schemas/client.schema";
 
-export const createClientService = async (data: Omit<Client, "id">): Promise<Client> => {
+export const createClientService = async ( data: ClientCreate ): Promise< ClientReturn > => {
 
-    const client: Client = await clientRepo.save(data)
+    const client: Client = clientRepo.create( data )
 
-    return client
+    await clientRepo.save( client )
+
+    return clientReturnSchema.parse( client )
 
 }
 
