@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import Client from "../entities/Client.entity";
 import { createClientService, deleteClientService, readAllClientsService, readByIdClientService, updateClientService } from "../services/client.service";
 import { ClientReturn } from "../interfaces/client.interface";
 import AppError from "../errors/AppErrors.error";
