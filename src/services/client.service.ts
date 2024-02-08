@@ -1,6 +1,6 @@
 import Client from "../entities/Client.entity";
 import { clientRepo } from "../repositories";
-import { ClientCreate, ClientReadReturn, ClientReturn } from "../interfaces/client.interface";
+import { ClientCreate, ClientReadReturn, ClientReturn, ClientUpdate } from "../interfaces/client.interface";
 import { clientReturnListSchema, clientReturnSchema } from "../schemas/client.schema";
 
 export const createClientService = async ( data: ClientCreate ): Promise< ClientReturn > => {
@@ -17,20 +17,22 @@ export const readAllClientsService = async (): Promise<ClientReadReturn> => {
 
     const clients: Client[] = await clientRepo.find()
 
-    return clientReturnListSchema.parse(clients)
+    return clientReturnListSchema.parse( clients )
     
 }
 
-export const updateClientService = async (client: Client, data: Partial<Client>): Promise<Client> => {
+export const updateClientService = async ( data: ClientUpdate, client: Client ): Promise<ClientReturn> => {
     
-    return await clientRepo.save({...client, ...data})
+    const clientUpdate: Client = await clientRepo.save( { ...client, ...data } )
+
+    return clientReturnSchema.parse(clientUpdate)
     
 }
 
 
 export const deleteClientService = async (client: Client): Promise<void> => {
 
-    await clientRepo.remove(client)
+    await clientRepo.softRemove(client)
 
 }
 
