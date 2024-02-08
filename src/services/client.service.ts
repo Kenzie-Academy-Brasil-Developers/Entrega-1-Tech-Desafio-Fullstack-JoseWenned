@@ -1,7 +1,7 @@
 import Client from "../entities/Client.entity";
 import { clientRepo } from "../repositories";
-import { ClientCreate, ClientReturn } from "../interfaces/client.interface";
-import { clientReturnSchema } from "../schemas/client.schema";
+import { ClientCreate, ClientReadReturn, ClientReturn } from "../interfaces/client.interface";
+import { clientReturnListSchema, clientReturnSchema } from "../schemas/client.schema";
 
 export const createClientService = async ( data: ClientCreate ): Promise< ClientReturn > => {
 
@@ -13,11 +13,11 @@ export const createClientService = async ( data: ClientCreate ): Promise< Client
 
 }
 
-export const readAllClientsService = async (): Promise<Client[]> => {
+export const readAllClientsService = async (): Promise<ClientReadReturn> => {
 
     const clients: Client[] = await clientRepo.find()
 
-    return clients
+    return clientReturnListSchema.parse(clients)
     
 }
 
