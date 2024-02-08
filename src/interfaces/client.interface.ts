@@ -11,6 +11,8 @@ export type ClientUpdate = DeepPartial<ClientBodyUpdate>
 
 export type ClientReturn = z.infer<typeof clientReturnSchema>
 
+export type ClientReadReturn = ClientReturn[]
+
 export type ClientLogin = z.infer<typeof clientLoginSchema>
 
 export type LoginReturn = { token: string }

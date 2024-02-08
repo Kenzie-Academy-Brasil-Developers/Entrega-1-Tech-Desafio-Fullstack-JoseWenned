@@ -29,6 +29,8 @@ export const updateClientSchema = clientWithoutAdmin.partial()
 
 export const clientReturnSchema = clientSchema.omit( { password: true } )
 
+export const clientReturnListSchema = clientReturnSchema.array()
+
 export const clientReadSchema = clientReturnSchema.array()
 
 export const clientLoginSchema = clientSchema.pick( { 
