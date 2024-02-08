@@ -13,7 +13,7 @@ export const createClientService = async ( data: ClientCreate ): Promise< Client
 
 }
 
-export const readClientsService = async (): Promise<Client[]> => {
+export const readAllClientsService = async (): Promise<Client[]> => {
 
     const clients: Client[] = await clientRepo.find()
 

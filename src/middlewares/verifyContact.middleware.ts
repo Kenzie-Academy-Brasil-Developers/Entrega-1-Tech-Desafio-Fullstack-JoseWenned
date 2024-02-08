@@ -23,7 +23,7 @@ export const verifyContactEmailExits = async (req: Request, res: Response, next:
 
     const contactEmail: Contact | null = await contactRepo.findOneBy( { email } )
     
-    if( contactEmail ) throw new AppError( "Contact alread exists", 409)
+    if( contactEmail ) throw new AppError( "E-mail alread exists", 409)
 
     return next()
 
