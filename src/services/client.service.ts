@@ -2,6 +2,7 @@ import Client from "../entities/Client.entity";
 import { clientRepo } from "../repositories";
 import { ClientCreate, ClientReadReturn, ClientReturn } from "../interfaces/client.interface";
 import { clientReturnListSchema, clientReturnSchema } from "../schemas/client.schema";
+import AppError from "../errors/AppErrors.error";
 
 export const createClientService = async ( data: ClientCreate ): Promise< ClientReturn > => {
 
@@ -21,16 +22,28 @@ export const readAllClientsService = async (): Promise<ClientReadReturn> => {
     
 }
 
-export const updateClientService = async (client: Client, data: Partial<Client>): Promise<Client> => {
+export const readByIdClientService = async (clientId: number): Promise<ClientReturn> => {
+
+    const client: Client | null = await clientRepo.findOneBy( { id: clientId } )
+
+    if(!client) throw new AppError("Client not found", 404)
+
+    return clientReturnSchema.parse(client)
+
+}
+
+export const updateClientService = async (client: Client, data: Partial<Client>): Promise<ClientReturn> => {
     
-    return await clientRepo.save({...client, ...data})
+    const updateClient = await clientRepo.save({...client, ...data})
+
+    return clientReturnSchema.parse(updateClient)
     
 }
 
 
 export const deleteClientService = async (client: Client): Promise<void> => {
 
-    await clientRepo.remove(client)
+    await clientRepo.softRemove(client)
 
 }
 

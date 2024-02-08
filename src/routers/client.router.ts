@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { createClientController, deleteClientController, readByIdClientController, readClientsController, updateClientController } from "../controllers/client.controller";
 import { verifyClientEmailExits, verifyClientIdExits, verifyClientTelephoneExits } from "../middlewares/verifyClient.middleware";
-import { validateBody, verifyToken } from "../middlewares/global.middleware";
-import { createClientSchema } from "../schemas/client.schema";
+import { validateBody, verifyAdmin, verifyPermissions, verifyToken } from "../middlewares/global.middleware";
+import { createClientSchema, updateClientSchema } from "../schemas/client.schema";
 
 export const clientRouter: Router = Router()
 
@@ -15,20 +15,21 @@ clientRouter.post("/",
     
 )
 
-clientRouter.get("/", verifyToken, readClientsController)
+clientRouter.get("/", verifyToken, verifyAdmin, readClientsController)
 
 clientRouter.use("/:id", verifyClientIdExits)
 
-clientRouter.get("/:id", readByIdClientController)
+clientRouter.get("/:id", verifyToken, verifyClientIdExits, verifyAdmin, readByIdClientController)
 
 clientRouter.patch("/:id", 
 
-    validateBody,
+    validateBody(updateClientSchema),
     verifyToken,
     verifyClientEmailExits, 
     verifyClientTelephoneExits,
+    verifyPermissions,
     updateClientController
 
 )
 
-clientRouter.delete("/:id", verifyToken, deleteClientController)
+clientRouter.delete("/:id", verifyToken, verifyClientIdExits, verifyPermissions, verifyAdmin, deleteClientController)
