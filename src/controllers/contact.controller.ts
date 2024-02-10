@@ -4,7 +4,7 @@ import { createContactService, deleteContactService, readContactsService, update
 
 export const createContactController = async (req: Request, res: Response): Promise<Response> => {
     
-    const contact: Contact = await createContactService(req.body)
+    const contact = await createContactService(req.body)
 
     return res.status(201).json(contact)
 
