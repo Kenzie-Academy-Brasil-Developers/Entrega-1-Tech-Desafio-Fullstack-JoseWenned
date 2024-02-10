@@ -9,6 +9,8 @@ export type ContactBodyUpdate = Partial<ContactCreate>
 
 export type ContactReturn = z.infer<typeof contactReadSchema>
 
+export type ContactReadReturn = ContactReturn[]
+
 export type ContactRead = Array<Contact>
 
 export type ContactRepo = Repository<Contact>
