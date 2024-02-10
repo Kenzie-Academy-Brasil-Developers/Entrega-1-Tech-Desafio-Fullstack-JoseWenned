@@ -18,6 +18,6 @@ export const createContactSchema = contactSchema.omit( {
 
 } )
 
-export const contactReadSchema = createContactSchema.array()
+export const contactReadSchema = contactSchema.array()
 
 export const updateContactSchema = contactSchema.partial()
