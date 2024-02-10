@@ -1,5 +1,4 @@
 import Contact from "../entities/Contact.entity";
-import AppError from "../errors/AppErrors.error";
 import { PaginationParams } from "../interfaces/pagination.interface";
 import { contactRepo } from "../repositories";
 
