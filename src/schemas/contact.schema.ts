@@ -14,9 +14,8 @@ export const contactSchema = z.object({
 export const createContactSchema = contactSchema.omit( { 
 
     id: true,
-    clientId: true
 
-} )
+})
 
 export const contactReadSchema = contactSchema.array()
 
