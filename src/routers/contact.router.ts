@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createContactController, deleteContactController, readByIdContactController, readContactsController, updateContactController } from "../controllers/contact.controller";
+import { createContactController, deleteContactController, readAllContactsController, readByIdContactController, readContactsController, updateContactController } from "../controllers/contact.controller";
 import { verifyContactEmailExits, verifyContactIdExits, verifyContactTelephoneExits } from "../middlewares/verifyContact.middleware";
 import { pagination } from "../middlewares/pagination.middleware";
 import { validateBody, verifyToken } from "../middlewares/global.middleware";
@@ -22,7 +22,7 @@ contactRouter.get("/",
 
     verifyToken,
     pagination, 
-    readContactsController
+    readAllContactsController
 
 )
 

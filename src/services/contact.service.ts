@@ -1,16 +1,22 @@
+import Client from "../entities/Client.entity";
 import Contact from "../entities/Contact.entity";
+import { ContactCreate } from "../interfaces/contact.interface";
 import { PaginationParams } from "../interfaces/pagination.interface";
-import { contactRepo } from "../repositories";
+import { clientRepo, contactRepo } from "../repositories";
 
-export const createContactService = async (data: Omit<Contact, "id">): Promise<Contact> => {
+export const createContactService = async ( data: ContactCreate, clientId: number ): Promise<void> => {
 
-    const contact: Contact = await contactRepo.save(data)
+    const client: Client | null = await clientRepo.findOneBy( { id: data.clientId } )
 
-    return contact
+    const contact: Contact | null = await contactRepo.findOneBy( { id: clientId } )
+
+    const newContact = { ...data, ...client, ...contact }
+    
+    await contactRepo.save(newContact)
 
 }
 
-export const readContactsService = async ({nextPage, page, perPage, prevPage, order, sort}: PaginationParams): Promise<any> => {
+export const readAllContactsService = async ({nextPage, page, perPage, prevPage, order, sort}: PaginationParams): Promise<any> => {
 
     const [contacts, count] = await contactRepo.findAndCount({
         order: { [sort]: order },

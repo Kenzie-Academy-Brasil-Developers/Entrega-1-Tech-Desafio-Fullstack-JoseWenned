@@ -1,18 +1,20 @@
 import { Request, Response } from "express";
 import Contact from "../entities/Contact.entity";
-import { createContactService, deleteContactService, readContactsService, updateContactService } from "../services/contact.service";
+import { createContactService, deleteContactService, readAllContactsService, updateContactService } from "../services/contact.service";
 
 export const createContactController = async (req: Request, res: Response): Promise<Response> => {
-    
-    const contact = await createContactService(req.body)
+   
+    const { sub } = res.locals.decoded
+
+    const contact = await createContactService(req.body, sub)
 
     return res.status(201).json(contact)
 
 }
 
-export const readContactsController = async (req: Request, res: Response): Promise<Response> => {
+export const readAllContactsController = async (req: Request, res: Response): Promise<Response> => {
     
-    const contacts: Contact[] = await readContactsService(res.locals.pagination)
+    const contacts: Contact[] = await readAllContactsService(res.locals.pagination)
 
     return res.status(200).json(contacts)
     
