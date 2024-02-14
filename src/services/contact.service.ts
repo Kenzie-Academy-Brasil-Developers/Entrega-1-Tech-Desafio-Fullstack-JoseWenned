@@ -1,18 +1,19 @@
 import Client from "../entities/Client.entity";
 import Contact from "../entities/Contact.entity";
-import { ContactCreate } from "../interfaces/contact.interface";
+import { ContactCreate, ContactReturnCreate } from "../interfaces/contact.interface";
 import { PaginationParams } from "../interfaces/pagination.interface";
 import { clientRepo, contactRepo } from "../repositories";
+import { contactReturnSchema } from "../schemas/contact.schema";
 
-export const createContactService = async ( data: ContactCreate, clientId: number ): Promise<void> => {
+export const createContactService = async ( data: ContactCreate, clientId: number ): Promise<ContactReturnCreate> => {
 
-    const client: Client | null = await clientRepo.findOneBy( { id: data.clientId } )
+    const client: Client | null = await clientRepo.findOneBy( { id: clientId } )
 
-    const contact: Contact | null = await contactRepo.findOneBy( { id: clientId } )
-
-    const newContact = { ...data, ...client, ...contact }
+    const newContact = ({ ...data, clientId: client })
     
     await contactRepo.save(newContact)
+
+    return contactReturnSchema.parse(newContact)
 
 }
 
