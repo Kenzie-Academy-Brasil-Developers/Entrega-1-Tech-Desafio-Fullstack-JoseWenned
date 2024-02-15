@@ -3,7 +3,6 @@ import { createContactController, deleteContactController, readAllContactsContro
 import { verifyContactEmailExits, verifyContactIdExits, verifyContactTelephoneExits } from "../middlewares/verifyContact.middleware";
 import { pagination } from "../middlewares/pagination.middleware";
 import { validateBody, verifyToken } from "../middlewares/global.middleware";
-import { verifyClientIdExits } from "../middlewares/verifyClient.middleware";
 import { createContactSchema, updateContactSchema } from "../schemas/contact.schema";
 
 export const contactRouter: Router = Router()
@@ -14,7 +13,6 @@ contactRouter.post("/",
     validateBody(createContactSchema),
     verifyContactEmailExits, 
     verifyContactTelephoneExits, 
-    verifyClientIdExits,
     createContactController
 
 )
@@ -29,7 +27,7 @@ contactRouter.get("/",
 
 contactRouter.use("/:id", verifyContactIdExits)
 
-contactRouter.get("/:id", readByIdContactController)
+contactRouter.get("/:id", verifyToken, readByIdContactController)
 
 contactRouter.patch("/:id", 
 

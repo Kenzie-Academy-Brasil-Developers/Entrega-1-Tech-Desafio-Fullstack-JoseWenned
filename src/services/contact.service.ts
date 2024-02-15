@@ -1,18 +1,24 @@
 import Client from "../entities/Client.entity";
 import Contact from "../entities/Contact.entity";
+import AppError from "../errors/AppErrors.error";
 import { ContactCreate } from "../interfaces/contact.interface";
 import { PaginationParams } from "../interfaces/pagination.interface";
 import { clientRepo, contactRepo } from "../repositories";
 
-export const createContactService = async ( data: ContactCreate, clientId: number ): Promise<void> => {
+export const createContactService = async ( data: ContactCreate ): Promise<Contact> => {
 
-    const client: Client | null = await clientRepo.findOneBy( { id: data.clientId } )
+    const client: Client | null = await clientRepo.findOne( { where: { id: data.clientId } } )
 
-    const contact: Contact | null = await contactRepo.findOneBy( { id: clientId } )
+    if( !client ) throw new AppError("Client not found.", 404)
 
-    const newContact = { ...data, ...client, ...contact }
-    
+    const newContact: Contact = contactRepo.create({
+        ...data,
+        client
+    })
+
     await contactRepo.save(newContact)
+
+    return newContact
 
 }
 
@@ -35,7 +41,7 @@ export const readAllContactsService = async ({nextPage, page, perPage, prevPage,
 
 export const updateContactService = async (client: Contact, data: Partial<Contact>): Promise<Contact> => {
     
-    return await contactRepo.save({...client, ...data})
+    return await contactRepo.save( { ...client, ...data } )
     
 }
 
