@@ -33,8 +33,6 @@ contactRouter.patch("/:id",
 
     verifyToken,
     validateBody(updateContactSchema),
-    verifyContactEmailExits, 
-    verifyContactTelephoneExits, 
     updateContactController
 
 )
