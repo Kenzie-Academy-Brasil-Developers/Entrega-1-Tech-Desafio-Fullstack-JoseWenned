@@ -7,13 +7,14 @@ export const contactSchema = z.object({
     email: z.string().email().max(120),
     telephone: z.string().max(15),
     date_register: z.string(),
-    clientId: z.number().int().positive()
+    clientId: z.number().positive()
 
 })
 
 export const createContactSchema = contactSchema.omit( { 
 
     id: true,
+    client: true
 
 })
 
