@@ -25,8 +25,6 @@ clientRouter.patch("/:id",
 
     validateBody(updateClientSchema),
     verifyToken,
-    verifyClientEmailExits, 
-    verifyClientTelephoneExits,
     verifyPermissions,
     updateClientController
 
