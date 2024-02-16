@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, OneToMany, BeforeInsert, BeforeUpdate } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, OneToMany, BeforeInsert, BeforeUpdate, UpdateDateColumn, DeleteDateColumn } from "typeorm";
 import Contact from "./Contact.entity";
 import { getRounds, hashSync } from "bcryptjs";
 
@@ -25,6 +25,12 @@ export default class Client {
 
     @CreateDateColumn( { type: "date" } )
     date_register: string
+
+    @UpdateDateColumn( { type: "date" } )
+    updateAt: string
+
+    @DeleteDateColumn( { type: "date", nullable: true } )
+    deleteAt: string | null
 
     @OneToMany(()=> Contact, ( contact ) => contact.client )
     contacts: Array<Contact>
