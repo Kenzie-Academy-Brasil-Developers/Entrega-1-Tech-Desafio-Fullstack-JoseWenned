@@ -1,0 +1,88 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "CRUD the clients and contacts",
+        "description": "API for storing customer contacts",
+        "version": "1.0.0"
+    },
+    "servers": [ 
+        {
+            "url": "http://localhost:3000",
+            "description": "Development env"
+        },
+        {
+            "url": "https://onrender-clients-api.com",
+            "description": "Production env"
+        }
+    ],
+    "paths": {},
+    "components": {
+        "schemas": {
+            "createClient": {
+                "type": "object",
+                "properties": {
+                    "full_name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "telephone": {
+                        "type": "string"
+                    },
+                    "date_register": {
+                        "type": "string"
+                    }
+                }   
+            },
+            "readClient": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "full_name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "telephone": {
+                        "type": "string"
+                    },
+                    "date_register": {
+                        "type": "string"
+                    }
+                }
+            },
+            "readAllClient": {
+                "type": "array",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "full_name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "telephone": {
+                        "type": "string"
+                    },
+                    "date_register": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        {
+            "JWT": []
+        }
+    ]
+}
