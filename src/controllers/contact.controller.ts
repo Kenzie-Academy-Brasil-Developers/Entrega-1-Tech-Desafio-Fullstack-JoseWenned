@@ -11,8 +11,8 @@ export const createContactController = async ( req: Request, res: Response ): Pr
 }
 
 export const readAllContactsController = async ( req: Request, res: Response ): Promise<Response> => {
-    
-    const contacts: Contact[] = await readAllContactsService( res.locals.pagination )
+
+    const contacts: Contact[] = await readAllContactsService( { ...res.locals.pagination } )
 
     return res.status(200).json( contacts )
     

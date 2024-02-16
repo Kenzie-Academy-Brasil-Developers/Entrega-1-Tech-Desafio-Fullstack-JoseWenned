@@ -2,7 +2,7 @@ import { Router } from "express";
 import { createContactController, deleteContactController, readAllContactsController, readByIdContactController, updateContactController } from "../controllers/contact.controller";
 import { verifyContactEmailExits, verifyContactIdExits, verifyContactTelephoneExits } from "../middlewares/verifyContact.middleware";
 import { pagination } from "../middlewares/pagination.middleware";
-import { validateBody, verifyToken } from "../middlewares/global.middleware";
+import { validateBody, verifyPermissions, verifyToken } from "../middlewares/global.middleware";
 import { createContactSchema, updateContactSchema } from "../schemas/contact.schema";
 
 export const contactRouter: Router = Router()

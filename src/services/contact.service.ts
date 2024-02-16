@@ -13,7 +13,7 @@ export const createContactService = async ( data: ContactCreate ): Promise<Conta
 
     const newContact: Contact = contactRepo.create({
         ...data,
-        client
+        client: { id: client.id, full_name: client.full_name}
     })
 
     await contactRepo.save(newContact)
