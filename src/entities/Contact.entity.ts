@@ -20,7 +20,7 @@ export default class Contact {
     date_register: string
 
     @ManyToOne(() => Client, (client) => client.contacts, { onDelete: "CASCADE" } )
-    // @JoinColumn({name: "clientId"})
+    @JoinColumn({name: "clientId"})
     client: Client
 
 }
