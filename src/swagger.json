@@ -37,6 +37,20 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Unauthorized": {
+                                        "value": {
+                                            "message": "Invalid credentials."
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [{}]
@@ -46,23 +60,52 @@
             "post": {
                 "description": "Route responsible for customer registration.",
                 "tags": ["Route without parameter."],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/createClient"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "201": {
-                        "description": "Customer registeres sucessfully.",
+                        "description": "Created.",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object"
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/readClient"
                                 },
                                 "examples": {
-                                    "response": {
+                                    "client": {
                                         "value": {
-                                            "id": 7,
-                                            "full_name": "Nilson Costa",
-                                            "email": "nilson@gmail.com",
+                                            "id": 8,
+                                            "full_name": "babalu Costa",
+                                            "email": "babalu@gmail.com",
                                             "admin": false,
-                                            "telephone": "88991930797",
+                                            "telephone": "889919305497",
                                             "date_register": "2024-02-03"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict.",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "conflictErrorEmail": {
+                                        "value": {
+                                            "message": "E-mail already exists."
+                                        }
+                                    },
+                                    "conflictErrorTelephone": {
+                                        "value": {
+                                            "message": "Telephone already exists."
                                         }
                                     }
                                 }
@@ -73,15 +116,8 @@
                 "security": [{}]
             },
             "get": {
-                "description": "Route responsible for reading customers.",
-                "tags": ["Route with parameter."],
-                "security": [
-                    {
-                        "adminToken": [
-                            "BeareToken"
-                        ]
-                    }
-                ],
+                "description": "Route responsible for returning all registered clients.",
+                "tags": ["Route only accessed with admin token."],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -130,6 +166,39 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Unauthorized": {
+                                        "value": {
+                                            "message": "jwt must be provided."
+                                        }
+                                    },
+                                    "UnauthorizedJWT": {
+                                        "value": {
+                                            "message": "jwt expired."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "forbiddenError": {
+                                        "value": {
+                                            "message": "Insufficient permissions."
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -137,14 +206,16 @@
         "/clients/:id": {
             "get": {
                 "description": "Route responsible for reading only one client.",
-                "tags": ["Route with parameter."],
-                "security": [
-                    {
-                        "adminToken": [
-                            "BearerToken"
-                        ]
-                    }
-                ],
+                "tags": ["Route only accessed with admin token."],
+                "parameters": [{
+                    "schema": {
+                        "type": "number"
+                    },
+                    "in": "query",
+                    "description": "Id of the client you want to search.",
+                    "name": "id"
+                }
+            ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -167,11 +238,199 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Unauthorized": {
+                                        "value": {
+                                            "message": "jwt must be provided."
+                                        }
+                                    },
+                                    "UnauthorizedJWT": {
+                                        "value": {
+                                            "message": "jwt expired."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "forbiddenError": {
+                                        "value": {
+                                            "message": "Insufficient permissions."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "notFound": {
+                                        "value": {
+                                            "message": "Client not found."
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             },
-            "patch": {},
-            "delete": {}
+            "patch": {
+                "description": "Route responsible for updating client.",
+                "tags": ["Route with normal user token access."],
+                "parameters": [{
+                        "schema": {
+                            "type": "number"
+                        },
+                        "in": "query",
+                        "description": "Id of the client you want to search.",
+                        "name": "id"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/createClient"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Client updated successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "response": {
+                                        "value": {
+                                            "id": 8,
+                                            "full_name": "baba Neto Noia",
+                                            "email": "babalu@gmail.com",
+                                            "admin": false,
+                                            "telephone": "889919305497",
+                                            "date_register": "2024-02-03"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Unauthorized": {
+                                        "value": {
+                                            "message": "jwt must be provided."
+                                        }
+                                    },
+                                    "UnauthorizedJWT": {
+                                        "value": {
+                                            "message": "jwt expired."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "forbiddenError": {
+                                        "value": {
+                                            "message": "Insufficient permissions."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "notFound": {
+                                        "value": {
+                                            "message": "Client not found."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict.",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "conflictErrorEmail": {
+                                        "value": {
+                                            "message": "E-mail already exists."
+                                        }
+                                    },
+                                    "conflictErrorTelephone": {
+                                        "value": {
+                                            "message": "Telephone already exists."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Route responsible for deleting the client.",
+                "tags": ["Route with normal user token access."],
+                "parameters": [{
+                    "schema": {
+                        "type": "number"
+                    },
+                    "in": "query",
+                    "description": "Id of the client you want to search.",
+                    "name": "id"
+                }],
+                "responses": {
+                    "204": {
+                        "description": "No Body content."
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "notFound": {
+                                        "value": {
+                                            "message": "Client not found."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         },
         "/contacts": {
             "post": {},
