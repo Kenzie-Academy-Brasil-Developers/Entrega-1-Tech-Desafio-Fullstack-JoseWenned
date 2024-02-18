@@ -15,9 +15,187 @@
             "description": "Production env"
         }
     ],
-    "paths": {},
+    "paths": {
+        "/login": {
+            "post": {
+                "description": "Route responsible for user login.",
+                "tags": ["Route without parameter."],
+                "responses": {
+                    "200": {
+                        "description": "Login successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "examples": {
+                                    "response": {
+                                        "value": {
+                                            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5pbHNvbkBnbWFpbC5jb20iLCJhZG1pbiI6ZmFsc2UsImlhdCI6MTcwODI0MDI2NywiZXhwIjoxNzA4MjQzODY3LCJzdWIiOiI3In0.htqtQvoSh7DJvnLCQQyx3Z0KmGGIbixJSA3L1xOAKYw"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [{}]
+            }
+        },
+        "/clients": {
+            "post": {
+                "description": "Route responsible for customer registration.",
+                "tags": ["Route without parameter."],
+                "responses": {
+                    "201": {
+                        "description": "Customer registeres sucessfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "response": {
+                                        "value": {
+                                            "id": 7,
+                                            "full_name": "Nilson Costa",
+                                            "email": "nilson@gmail.com",
+                                            "admin": false,
+                                            "telephone": "88991930797",
+                                            "date_register": "2024-02-03"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [{}]
+            },
+            "get": {
+                "description": "Route responsible for reading customers.",
+                "tags": ["Route with parameter."],
+                "security": [
+                    {
+                        "adminToken": [
+                            "BeareToken"
+                        ]
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array"
+                                },
+                                "examples": {
+                                    "response": {
+                                        "value": [
+                                            {
+                                                "id": 1,
+                                                "full_name": "Administrador do Projeto",
+                                                "email": "admin@gmail.com",
+                                                "admin": true,
+                                                "telephone": "88991989297",
+                                                "date_register": "2024-02-08"
+                                            },
+                                            {
+                                                "id": 4,
+                                                "full_name": "Tasso Silva Costa",
+                                                "email": "tasso@gmail.com",
+                                                "admin": false,
+                                                "telephone": "88991980597",
+                                                "date_register": "2024-02-03"
+                                            },
+                                            {
+                                                "id": 2,
+                                                "full_name": "bal costa Silva",
+                                                "email": "jubileu12@gmail.com",
+                                                "admin": false,
+                                                "telephone": "88902021902",
+                                                "date_register": "2024-02-09"
+                                            },
+                                            {
+                                                "id": 3,
+                                                "full_name": "baloo costa Silva",
+                                                "email": "nalo@gmail.com",
+                                                "admin": false,
+                                                "telephone": "88991983597",
+                                                "date_register": "2024-02-09"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/clients/:id": {
+            "get": {
+                "description": "Route responsible for reading only one client.",
+                "tags": ["Route with parameter."],
+                "security": [
+                    {
+                        "adminToken": [
+                            "BearerToken"
+                        ]
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "response": {
+                                        "value": {
+                                            "id": 6,
+                                            "full_name": "Silva Neto Noia",
+                                            "email": "silva@gmail.com",
+                                            "admin": false,
+                                            "telephone": "88991980797",
+                                            "date_register": "2024-02-03"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {},
+            "delete": {}
+        },
+        "/contacts": {
+            "post": {},
+            "get": {}
+        },
+        "/contacts:id": {
+            "get": {},
+            "patch": {},
+            "delete": {}
+        }
+    },
     "components": {
         "schemas": {
+            "loginClient": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                }
+            },
             "createClient": {
                 "type": "object",
                 "properties": {
@@ -29,6 +207,9 @@
                     },
                     "password": {
                         "type": "string"
+                    },
+                    "admin": {
+                        "type": "boolean"
                     },
                     "telephone": {
                         "type": "string"
@@ -50,6 +231,9 @@
                     "email": {
                         "type": "string"
                     },
+                    "admin": {
+                        "type": "boolean"
+                    },
                     "telephone": {
                         "type": "string"
                     },
@@ -70,10 +254,126 @@
                     "email": {
                         "type": "string"
                     },
+                    "admin": {
+                        "type": "boolean"
+                    },
                     "telephone": {
                         "type": "string"
                     },
                     "date_register": {
+                        "type": "string"
+                    }
+                }
+            },
+            "updateClient": {
+                "type": "object",
+                "properties": {
+                    "full_name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "telephone": {
+                        "type": "string"
+                    },
+                    "updateAt": {
+                        "type": "string"
+                    }
+                }
+            },
+            "deleteClient": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "deleteAt": {
+                        "type": "string"
+                    }
+                }
+            },
+            "createContact": {
+                "type": "object", 
+                "properties": {
+                    "full_name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "telephone": {
+                        "type": "string"
+                    },
+                    "date_register": {
+                        "type": "string"
+                    }
+                }
+            },
+            "readContact": {
+                "type": "object", 
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "full_name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "telephone": {
+                        "type": "string"
+                    },
+                    "date_register": {
+                        "type": "string"
+                    }
+                }
+            },
+            "readAllContact": {
+                "type": "array", 
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "full_name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "telephone": {
+                        "type": "string"
+                    },
+                    "date_register": {
+                        "type": "string"
+                    }
+                }
+            },
+            "updateContact": {
+                "type": "object",
+                "properties": {
+                    "full_name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "telephone": {
+                        "type": "string"
+                    }
+                } 
+            },
+            "deleteContact": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "deleteAt": {
                         "type": "string"
                     }
                 }
