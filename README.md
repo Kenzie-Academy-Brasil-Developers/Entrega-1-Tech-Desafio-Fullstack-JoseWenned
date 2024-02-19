@@ -6,7 +6,7 @@ The API was developed using Node.js and typescript.
 
 For the API to work, you must do the following:
 - Locally clone this repository.
-- Use the "yarn install" command in your terminal to install all dependencies.
+- Use the "yarn" command in your terminal to install all dependencies.
 - Define your secret key in the .env, in the JWT_SECRET_KEY field. There is a .env.example in the project to help you with this.
 - Use the command "npm run typeorm migration:generate src/migrations/InitialMigration -- -d src/data-source" in your terminal, to obtain new migrations and build a postgresSQL database in your migrations folder. The terminal will ask for a name for your new migration.
 - Use the "npm run dev" command to run the server.
