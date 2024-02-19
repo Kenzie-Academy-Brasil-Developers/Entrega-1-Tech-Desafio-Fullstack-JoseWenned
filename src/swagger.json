@@ -18,8 +18,17 @@
     "paths": {
         "/login": {
             "post": {
-                "description": "Route responsible for user login.",
+                "description": "Route responsible for client login.",
                 "tags": ["Route without parameter."],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/loginClient"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Login successfully.",
@@ -31,7 +40,7 @@
                                 "examples": {
                                     "response": {
                                         "value": {
-                                            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5pbHNvbkBnbWFpbC5jb20iLCJhZG1pbiI6ZmFsc2UsImlhdCI6MTcwODI0MDI2NywiZXhwIjoxNzA4MjQzODY3LCJzdWIiOiI3In0.htqtQvoSh7DJvnLCQQyx3Z0KmGGIbixJSA3L1xOAKYw"
+                                            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbXktZG9tYWluLmF1dGgwLmNvbSIsInN1YiI6ImF1dGgwfDEyMzQ1NiIsImF1ZCI6IjEyMzRhYmNkZWYiLCJleHAiOjEzMTEyODE5NzAsImlhdCI6MTMxMTI4MDk3MCwibmFtZSI6IkphbmUgRG9lIiwiZ2l2ZW5fbmFtZSI6IkphbmUiLCJmYW1pbHlfbmFtZSI6IkRvZSJ9.bql-jxlG9B_bielkqOnjTY9Di9FillFb6IMQINXoYsw"
                                         }
                                     }
                                 }
@@ -39,7 +48,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthorized.",
+                        "description": "unauthorized.",
                         "content": {
                             "application/json": {
                                 "examples": {
@@ -58,7 +67,7 @@
         },
         "/clients": {
             "post": {
-                "description": "Route responsible for customer registration.",
+                "description": "Route responsible for client registration.",
                 "tags": ["Route without parameter."],
                 "requestBody": {
                     "content": {
@@ -168,7 +177,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthorized.",
+                        "description": "unauthorized.",
                         "content": {
                             "application/json": {
                                 "examples": {
@@ -240,7 +249,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthorized.",
+                        "description": "unauthorized.",
                         "content": {
                             "application/json": {
                                 "examples": {
@@ -290,7 +299,7 @@
             },
             "patch": {
                 "description": "Route responsible for updating client.",
-                "tags": ["Route with normal user token access."],
+                "tags": ["Route with normal client token access."],
                 "parameters": [{
                         "schema": {
                             "type": "number"
@@ -304,7 +313,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/createClient"
+                                "$ref": "#/components/schemas/updateClient"
                             }
                         }
                     }
@@ -402,7 +411,7 @@
             },
             "delete": {
                 "description": "Route responsible for deleting the client.",
-                "tags": ["Route with normal user token access."],
+                "tags": ["Route with normal client token access."],
                 "parameters": [{
                     "schema": {
                         "type": "number"
@@ -435,7 +444,7 @@
         "/contacts": {
             "post": {
                 "description": "Route resposible for contact registration.",
-                "tags": ["Route with normal user token access."],
+                "tags": ["Route with normal client token access."],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -487,6 +496,20 @@
                             }
                         }
                     },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "forbiddenError": {
+                                        "value": {
+                                            "message": "Insufficient permissions."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
                     "409": {
                         "description": "Conflict.",
                         "content": {
@@ -510,7 +533,7 @@
             },
             "get": {
                 "description": "Route responsible for returning all registered contacts.",
-                "tags": ["Route with normal user token access."],
+                "tags": ["Route with normal client token access."],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -588,7 +611,7 @@
         "/contacts:id": {
             "get": {
                 "description": "Route responsible for reading only one contact.",
-                "tags": ["Route with normal user token access."],
+                "tags": ["Route with normal client token access."],
                 "parameters": [{
                     "schema": {
                         "type": "number"
@@ -671,7 +694,7 @@
             },
             "patch": {
                 "description": "Route responsible for updating contact.",
-                "tags": ["Route with normal user token access."],
+                "tags": ["Route with normal client token access."],
                 "parameters": [{
                         "schema": {
                             "type": "number"
@@ -685,7 +708,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/createContact"
+                                "$ref": "#/components/schemas/updateContact"
                             }
                         }
                     }
@@ -782,7 +805,7 @@
             },
             "delete": {
                 "description": "Route responsible for deleting the contact.",
-                "tags": ["Route with normal user token access."],
+                "tags": ["Route with normal client token access."],
                 "parameters": [{
                     "schema": {
                         "type": "number"
