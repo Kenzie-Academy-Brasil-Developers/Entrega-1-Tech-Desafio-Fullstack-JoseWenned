@@ -12,7 +12,8 @@
       "emitDecoratorMetadata": true,
       "strictPropertyInitialization": false,
       "resolveJsonModule": true,
-      "types": ["html-pdf"]
+      "types": ["html-pdf"],
+      "outDir": "./dist",
     },
     "include": ["src/**/*.ts"],
     "exclude": ["node_modules"]
