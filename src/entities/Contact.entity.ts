@@ -22,5 +22,8 @@ export default class Contact {
     @ManyToOne(() => Client, (client) => client.contacts, { onDelete: "CASCADE" } )
     @JoinColumn({name: "clientId"})
     client: Client
+    static email: any;
+    static telephone: any;
+    static date_Register: any;
 
 }

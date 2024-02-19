@@ -48,5 +48,8 @@ export default class Client {
         }
 
     }
+    static email: any;
+    static telephone: any;
+    static date_Register: any;
 
 }
