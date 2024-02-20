@@ -14,6 +14,7 @@
       "resolveJsonModule": true,
       "types": ["html-pdf"],
       "outDir": "./dist",
+      "rootDir": "./src",
     },
     "include": ["src/**/*.ts"],
     "exclude": ["node_modules"]
