@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate PDF</title>
+
+    <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+
+    <style>
+        table {
+            width: 100%;
+        }
+
+        th {
+            text-align: left;
+        }
+    </style>
+</head>
+<body class="bg-purple-100">
+    <div class="m-8">
+        <h1 class="text-3xl">List Clients and contacts.</h1>
+        <table>
+            <theader>
+                <tr>
+                    <th>Name</th>
+                    <th>E-mail</th>
+                    <th>Telephone</th>
+                <tr>
+            </theader>
+
+            <tsection>
+                <% if(client.length > 0 ) { %>
+                    <% client.forEach(client => { %>
+                        <tr>
+                            <td><%= client.name %></td>
+                            <td><%= client.email %></td>
+                            <td><%= client.telephone %></td>
+                            <td>
+                                <% if(client.contacts.length > 0) { %>
+                                    <% client.contact.forEach(contact => { %>
+                                        <tr>
+                                            <td><%= contact.name %></td>
+                                            <td><%= contact.email %></td>
+                                            <td><%= contact.telephone %></td>
+                                        </tr>
+                                    <% }) %>
+                                <% } %>
+                            </td> 
+                        </tr>
+                    <% }) %>
+                <% } %>
+            </tsection>
+
+            <tfooter>
+                <tr><td colspan="2"><%= clients.length %> clients</td></tr>
+            </tfooter>
+        </table>
+    </div>
+</body>
+</html>
