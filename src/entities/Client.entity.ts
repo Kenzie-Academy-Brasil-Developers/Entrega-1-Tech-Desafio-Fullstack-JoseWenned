@@ -17,8 +17,11 @@ export default class Client {
     @Column( { length: 200 } )
     password: string
 
-    @Column( { default: false } )
-    admin: boolean
+    @Column( { length: 200 } )
+    confirmPassword: string
+
+    @Column( { length:15, default: "accountNormal" } )
+    typeAccount: string
 
     @Column( { length: 15, unique: true } )
     telephone: string
