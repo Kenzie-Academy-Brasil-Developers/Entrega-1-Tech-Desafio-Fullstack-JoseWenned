@@ -3,31 +3,31 @@ import { createClientService, deleteClientService, readAllClientsService, readBy
 import { ClientReturn } from "../interfaces/client.interface";
 import AppError from "../errors/AppErrors.error";
 
-export const createClientController = async (req: Request, res: Response): Promise<Response> => {
+export const createClientController = async ( req: Request, res: Response ): Promise<Response> => {
     
-    const client: ClientReturn = await createClientService(req.body)
+    const client: ClientReturn = await createClientService( req.body )
 
-    return res.status(201).json(client)
+    return res.status( 201 ).json( client )
 
 }
 
-export const readClientsController = async (req: Request, res: Response): Promise<Response> => {
+export const readClientsController = async ( req: Request, res: Response ): Promise<Response> => {
     
     const clients = await readAllClientsService()
 
-    return res.status(200).json(clients)
+    return res.status( 200 ).json( clients )
     
 }
 
-export const readByIdClientController = async (req: Request, res: Response): Promise<Response> => {
+export const readByIdClientController = async ( req: Request, res: Response ): Promise<Response> => {
 
     const clientId = res.locals.foundClient.id
 
-    const client = await readByIdClientService(clientId);
+    const client = await readByIdClientService( clientId );
 
-    if(!client) throw new AppError("Client not found", 404)
+    if( !client ) throw new AppError( "Client not found", 404 )
 
-    return res.status(200).json(client);
+    return res.status( 200 ).json( client );
     
 }
 
@@ -35,16 +35,16 @@ export const updateClientController = async (req: Request, res: Response): Promi
     
     const { foundClient } = res.locals
 
-    const client = await updateClientService(foundClient, req.body)
+    const client = await updateClientService( foundClient, req.body )
 
-    return res.status(200).json(client)
+    return res.status( 200 ).json( client )
     
 }
 
-export const deleteClientController = async (req: Request, res: Response): Promise<Response> => {
+export const deleteClientController = async ( req: Request, res: Response ): Promise<Response> => {
     
-    await deleteClientService(res.locals.foundClient)
+    await deleteClientService( res.locals.foundClient )
 
-    return res.status(204).json()
+    return res.status( 204 ).json()
     
 }
