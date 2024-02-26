@@ -20,7 +20,7 @@ export default class Client {
     @Column( { length: 200 } )
     confirmPassword: string
 
-    @Column( { length:15, default: "accountNormal" } )
+    @Column( { length:20, default: "accountNormal" } )
     typeAccount: string
 
     @Column( { length: 15, unique: true } )
