@@ -6,7 +6,7 @@ export const clientSchema = z.object({
     full_name: z.string().max(120),
     email: z.string().email().max(120),
     password: z.string().max(200),
-    admin: z.boolean().default(false),
+    typeAccount: z.string(),
     telephone: z.string().max(15),
     date_register: z.string()
 
@@ -17,17 +17,23 @@ export const createClientSchema = clientSchema.pick( {
     full_name: true,
     email: true,
     password: true,
-    admin: true,
+    confirmPassword: true,
+    typeAccount: true,
     telephone: true,
     date_register: true,
 
 } )
 
-export const clientWithoutAdmin = createClientSchema.omit( { admin: true } )
+export const clientWithoutAdmin = createClientSchema.omit( { typeAccount: true } )
 
 export const updateClientSchema = clientWithoutAdmin.partial()
 
-export const clientReturnSchema = clientSchema.omit( { password: true } )
+export const clientReturnSchema = clientSchema.omit( { 
+
+    password: true,
+    typeAccount: true,
+    
+} )
 
 export const clientReturnListSchema = clientReturnSchema.array()
 
