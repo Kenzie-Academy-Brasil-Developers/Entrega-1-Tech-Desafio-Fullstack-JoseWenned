@@ -22,7 +22,7 @@ export const loginClientService = async ( data: ClientLogin ): Promise<LoginRetu
 
         {
             email: client.email, 
-            admin: client.admin,
+            admin: client.typeAccount,
         },
 
         process.env.SECRET_KEY!,
